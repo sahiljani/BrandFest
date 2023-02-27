@@ -18,7 +18,7 @@
         <li class="mt-0.5 w-full">
             
         
-          <a href="{{ route('dashboard') }}" class="@php echo  request()->routeIs('dashboard') ? "py-2.7 bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="#">
+          <a href="{{ route('dashboard') }}" class="@php echo  request()->routeIs('dashboard') ? "py-2.7 bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="#">
             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
               <i class="relative top-0 text-sm leading-normal text-blue-500 ni ni-tv-2"></i>
             </div>
@@ -26,17 +26,29 @@
           </a>
         </li>
 
+
         <li class="mt-0.5 w-full">
-          <a href="{{ route('userlist') }}" class="@php echo  request()->routeIs('userlist') ? "py-2.7 bg-blue-500/13": ""; @endphp  dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="#">
-            <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-              <i class="relative top-0 text-sm leading-normal text-orange-500 ni ni-calendar-grid-58"></i>
+          <a href="{{ route('company.add') }}" class="@php echo  request()->routeIs('company.add') ? "py-2.7 bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="#">
+            <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current stroke-0 text-center xl:p-2.5">
+              <i class="relative top-0 text-sm leading-normal text-emerald-500 ni ni-credit-card"></i>
             </div>
-            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Users list</span>
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Add Company</span>
           </a>
         </li>
 
         <li class="mt-0.5 w-full">
-          <a href="{{ route('Addposterdata') }}" class="@php echo  request()->routeIs('Addposterdata') ? "py-2.7 bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="#">
+          <a href="{{ route('company.list') }}" class="@php echo  request()->routeIs('company.list') ? "py-2.7 bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="#">
+            <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+              <i class="relative top-0 text-sm leading-normal text-orange-500 ni ni-calendar-grid-58"></i>
+            </div>
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Companies List</span>
+          </a>
+        </li>
+
+        @if (Auth::user()->is_admin == 1)
+
+        <li class="mt-0.5 w-full">
+          <a href="{{ route('poster.add') }}" class="@php echo  request()->routeIs('poster.add') ? "py-2.7 bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="#">
             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current stroke-0 text-center xl:p-2.5">
               <i class="relative top-0 text-sm leading-normal text-emerald-500 ni ni-credit-card"></i>
             </div>
@@ -44,14 +56,42 @@
           </a>
         </li>
 
+        @endif        
+
+        @if (Auth::user()->is_admin == 1)
+
         <li class="mt-0.5 w-full">
-          <a href="{{ route('listposter') }}" class="@php echo  request()->routeIs('listposter') ? "py-2.7 bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="../pages/virtual-reality.html">
+          <a href="{{ route('poster.list') }}" class="@php echo  request()->routeIs('poster.list') ? "py-2.7 bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="../pages/virtual-reality.html">
             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
               <i class="relative top-0 text-sm leading-normal text-cyan-500 ni ni-app"></i>
             </div>
             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Posters List</span>
           </a>
         </li>
+
+        @endif
+
+        {{-- check user auth is_admin --}}
+
+        @if (Auth::user()->is_admin == 1)
+
+        <li class="mt-0.5 w-full">
+          <a href="{{ route('users.List') }}" class="@php echo  request()->routeIs('users.List') ? "py-2.7 bg-blue-500/13": ""; @endphp  dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="#">
+            <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+              <i class="relative top-0 text-sm leading-normal text-orange-500 ni ni-calendar-grid-58"></i>
+            </div>
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Users list</span>
+          </a>
+        </li>
+        
+        @endif
+       
+
+        
+
+        
+
+        
        
 
         <li class="w-full mt-4">

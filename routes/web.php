@@ -1,7 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PosterController;
+use App\Http\Controllers\User\CompanyController;
+use App\Http\Controllers\Admin\PosterGeneraterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,26 +26,43 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::get('/Addposter', function () {
-    return view('admin.addposter');
-})->middleware(['auth', 'verified'])->name('Addposterdata');
-
 Route::get('/posterlist', function () {
     return view('admin.posterlist');
 })->middleware(['auth', 'verified'])->name('listposter');
 
-Route::get('/userlist', function () {
-    return view('admin.userlist');
-})->middleware(['auth', 'verified'])->name('userlist');
 
-Route::get('/Addcompany', function () {
-    return view('User.addcompany');
-})->middleware(['auth', 'verified'])->name('Addcompanydata');
 
-Route::get('/companylist', function () {
-    return view('User.listcompany');
-})->middleware(['auth', 'verified'])->name('companylist');
+
+// Group for Admin
+
+Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+
+    // company routes
+
+    Route::get('/company', [CompanyController::class, 'add'])->name('company.add');
+    Route::post('/company/store', [CompanyController::class, 'store'])->name('company.store');
+    Route::get('/companies', [CompanyController::class, 'list'])->name('company.list');   
+    Route::delete('/company/delete/{id}', [CompanyController::class, 'delete'])->name('company.delete');
+
+    // group for user
+
+    Route::get('/poster', [PosterController::class, 'add'])->name('poster.add');
+    Route::post('/poster/store', [PosterController::class, 'store'])->name('poster.store');
+    Route::get('/posters', [PosterController::class, 'list'])->name('poster.list');
+    Route::post('/poster/Ajax', [PosterGeneraterController::class, 'store_ajax'])->name('poster.store.ajax');
+    Route::delete('/poster/delete/{id}', [PosterController::class, 'delete'])->name('poster.delete');
+
+    Route::get('/users', [UserController::class, 'list'])->name('users.List');
+    Route::get('/company/{id}', [CompanyController::class, 'list_usercompany'])->name('usercompanies.list');
+
+});
+
+
+
+
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
