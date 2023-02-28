@@ -16,6 +16,9 @@
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
     <link href="../assets/css/argon-dashboard-tailwind.css?v=1.0.1" rel="stylesheet" />
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+  
   </head>
 
   <body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
@@ -32,5 +35,5 @@
 <!-- end Navbar --> 
         {{ $slot }}
     </main>
-
+    <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>
 </div>

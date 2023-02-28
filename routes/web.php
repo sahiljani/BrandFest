@@ -43,6 +43,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::post('/company/store', [CompanyController::class, 'store'])->name('company.store');
     Route::get('/companies', [CompanyController::class, 'list'])->name('company.list');   
     Route::delete('/company/delete/{id}', [CompanyController::class, 'delete'])->name('company.delete');
+    // Route::get('/company/edit/{id}', [CompanyController::class, 'edit'])->name('companyedit');
+    Route::post('/company/edit/{id}', [CompanyController::class, 'edit_company'])->name('company.edit');
 
     // group for user
 
@@ -51,6 +53,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/posters', [PosterController::class, 'list'])->name('poster.list');
     Route::post('/poster/Ajax', [PosterGeneraterController::class, 'store_ajax'])->name('poster.store.ajax');
     Route::delete('/poster/delete/{id}', [PosterController::class, 'delete'])->name('poster.delete');
+
+    Route::get('/poster/generate', [PosterGeneraterController::class, 'generate'])->name('generatingposter');
 
     Route::get('/users', [UserController::class, 'list'])->name('users.List');
     Route::get('/company/{id}', [CompanyController::class, 'list_usercompany'])->name('usercompanies.list');

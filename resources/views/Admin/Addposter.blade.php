@@ -18,10 +18,8 @@
             <div class="w-full">
                 <section class="formone">
 
-
-
                     <form id="poster-form" method="post" action="{{ route('poster.store') }}"
-                        enctype="multipart/form-data" class="mt-6 space-y-6">
+                        enctype="multipart/form-data" class="mt-6 mx-10 space-y-6">
                         @csrf
 
                         <div class="py-3 px-3">
@@ -231,7 +229,7 @@
 
                         </div>
 
-                        <div class="py-3 px-3">
+                        <div class="py-6 px-3">
                             <label
                                 class="block text-gray-700 dark:text-gray-300  mb-2 ml-1 font-bold text-xs  dark:text-white/80"
                                 for="address_font_family">
@@ -254,22 +252,13 @@
 
 
 
-                        <div class="gap-4 py-3 px-3">
-
-                            {{-- <button
-                                class="sm:p-4 p-3 pt-4 grow rounded-lg flex items-center justify-center bg-red-1000 bg-green-500 shadow-lg text-xs sm:text-base"
-                                type="submit" value="Generate Image">Preview</button>
-
-                            <button type="submit"
-                                class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">
-                                Save
-                            </button> --}}
+                        <div class="gap-4 py-6 px-3">
 
                             <div
-                                class="flex gap-7 text-white text-sm font-bold font-mono leading-6 bg-stripes-indigo rounded-lg">
+                                class="my-5 flex gap-7 text-white text-sm font-bold font-mono leading-6 bg-stripes-indigo rounded-lg">
                                 <button
                                     class="mx-3 sm:p-4 p-3 pt-4 grow rounded-xl flex items-center justify-center bg-red-1000 bg-black shadow-lg text-xs sm:text-base"
-                                    type="submit" value="Generate Image">Preview</button>
+                                    type="submit" value="Generate Image" >Preview</button>
 
                                 <button
                                     class="mx-3 sm:p-4 p-3 pt-4 grow rounded-xl flex items-center justify-center bg-red-1000 bg-blue-500 shadow-lg text-xs sm:text-base"
@@ -286,9 +275,9 @@
 
             <div class="w-full">
                 <div class="previewblock w-[55%] p-4 flex justify-center">
-                    <div class="relative">
+                    <div class="fixed ">
                         <img src="{{ asset('preview-icon.jpg') }}" alt="preview" id="preview"
-                            class="w-full h-[850px]">
+                            class="" style="width: 600px; height:600px;">
                     </div>
                     <div id="result"></div>
                 </div>
@@ -306,7 +295,7 @@
     <script src="../assets/js/argon-dashboard-tailwind.js?v=1.0.1" async></script>
 
     <script>
-      var stopsubmit = true;
+                var stopsubmit = true;
                 const saveposter = document.getElementById("saveposter");
                 const form = document.getElementById("poster-form");
                 saveposter.addEventListener("click", function(e) {
@@ -316,31 +305,25 @@
                 });
                 document.addEventListener("DOMContentLoaded", function() {
                 
-                // preview
                 const preview = document.getElementById("preview");
                 form.addEventListener("submit", function(e) {
                 if(stopsubmit){
-    
                     e.preventDefault();
                 }
-                // add csrf token
+    
                 const csrf = document.createElement("input");
-             
-              
                 const formData = new FormData(this);          
                 const xhr = new XMLHttpRequest();
                 xhr.open("POST", <?php echo json_encode(route('poster.store.ajax')); ?>, true);
                 xhr.onreadystatechange = function() {
-                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    const result = xhr.responseText;
-                    
-
-                    var newSrc = "<?php echo asset('" + result + "'); ?>";
-                    preview.src = newSrc;
-                    document.getElementById('previous_image').value = result;
-                    } else if (this.status !== 200) {
+                if (this.readyState === XMLHttpRequest.DONE) {
+                    if (this.status === 200) {
+                    preview.src = "<?php echo asset('" + xhr.responseText + "'); ?>";
+                    previousImage.value = xhr.responseText;
+                    } else {
                     console.log("Error:", xhr.statusText);
                     }
+                }
                 };
                 xhr.send(formData);
                 });

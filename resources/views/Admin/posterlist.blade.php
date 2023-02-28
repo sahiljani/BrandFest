@@ -14,9 +14,17 @@
             <div class="flex-none w-full max-w-full px-3">
                 <div
                     class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-                    <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                    {{-- <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                         <h6 class="dark:text-white">Poster List</h6>
-                    </div>
+                    </div> --}}
+                    <div class="flex flex-wrap mx-3 py-3">
+                        <div class="flex items-center flex-none w-1/2 max-w-full px-3">
+                          <h6 class="mb-0 dark:text-white">Poster List</h6>
+                        </div>
+                        <div class="flex-none w-1/2 max-w-full px-3 text-right">
+                          <a href="{{ route('poster.add') }}" class="inline-block px-5 py-2.5 font-bold leading-normal text-center text-white align-middle transition-all bg-transparent rounded-lg cursor-pointer text-sm ease-in shadow-md bg-150 bg-gradient-to-tl from-zinc-800 to-zinc-700 dark:bg-gradient-to-tl dark:from-slate-750 dark:to-gray-850 hover:shadow-xs active:opacity-85 hover:-translate-y-px tracking-tight-rem bg-x-25" href="javascript:;"> <i class="fas fa-plus" aria-hidden="true"> </i>&nbsp;&nbsp;Add New Poster</a>
+                        </div>
+                      </div>
                     <div class="flex-auto px-0 pt-0 pb-2">
                         <div class="p-0 overflow-x-auto ps">
                             <table
@@ -77,29 +85,31 @@
                                                     class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $poster->description }}</span>
                                             </td>
 
+
                                             <td
-                                                class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                                <div class="flex justify-center
-                                                items-center m-5">
-                                                <button 
+                                            class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">                                               
+                                                    <a 
                                                     data-id="{{ $poster->id }}" 
                                                     data-name="{{ $poster->name }}"
                                                     data-date="{{ $poster->date }}"
                                                     data-image="{{ asset('storage/' . $poster->image) }}"
                                                     data-description="{{ asset('storage/' . $poster->description) }}"
-                                                    type="button"
-                                                    class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase  text-white"
-                                                    id="open-modal">Edit</button>
-                                                  </div>
-                                            </td>
+                                                    
+                                                    class="inline-block dark:text-white px-4 py-2.5 mb-0 font-bold text-center align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-normal text-sm ease-in bg-150 hover:-translate-y-px active:opacity-85 bg-x-25 text-slate-700" id="open-modal" href="javascript:;">
+                                                    <i class="mr-2 fas fa-pencil-alt text-slate-700" aria-hidden="true"></i>Edit</a>
+
+                                        </td>
                                             <td
-                                                class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                                <form method="POST" id="deletealert" action='{{ route("poster.delete",$poster->id) }}' class="flex justify-center
-                                                items-center">
+                                                class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">                                               
+
+                                                <form method="POST" id="deletealert" action='{{ route("poster.delete",$poster->id) }}' class="m-4">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                        class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase  text-white">Delete</button>
+                                                        class="relative z-10 inline-block px-4 py-2.5 mb-0 font-bold text-center text-transparent align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-normal text-sm ease-in bg-150 bg-gradient-to-tl from-red-600 to-orange-600 hover:-translate-y-px active:opacity-85 bg-x-25 bg-clip-text">                                           
+                                                            <i class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-orange-600 bg-x-25 bg-clip-text" aria-hidden="true">
+                                                                </i>Delete
+                                                            </button>                                                      
                                                 </form>
                                             </td>
                                         </tr>
