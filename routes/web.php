@@ -26,9 +26,7 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/posterlist', function () {
-    return view('admin.posterlist');
-})->middleware(['auth', 'verified'])->name('listposter');
+
 
 
 
@@ -37,8 +35,34 @@ Route::get('/posterlist', function () {
 
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
-    // company routes
 
+    Route::get('/poster', [PosterController::class, 'add'])->name('poster.add');
+    Route::post('/poster/store', [PosterController::class, 'store'])->name('poster.store');
+    Route::get('/posters', [PosterController::class, 'list'])->name('poster.list');
+    Route::post('/poster/Ajax', [PosterGeneraterController::class, 'store_ajax'])->name('poster.store.ajax');
+    Route::delete('/poster/delete/{id}', [PosterController::class, 'delete'])->name('poster.delete');
+
+    Route::get('/poster/edit/{id}', [PosterController::class, 'edit'])->name('poster.edit');
+    Route::post('/poster/update/{id}', [PosterController::class, 'update'])->name('poster.update');
+
+    Route::get('/poster/generate', [PosterGeneraterController::class, 'generate'])->name('generatingposter');
+
+    Route::get('/users', [UserController::class, 'list'])->name('users.List');
+    Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+    Route::get('/company/{id}', [CompanyController::class, 'list_usercompany'])->name('usercompanies.list');
+
+});
+
+// Group for User with prefix 
+
+
+
+
+
+
+
+Route::middleware(['auth','verified'])->group(function () {
+    
     Route::get('/company', [CompanyController::class, 'add'])->name('company.add');
     Route::post('/company/store', [CompanyController::class, 'store'])->name('company.store');
     Route::get('/companies', [CompanyController::class, 'list'])->name('company.list');   
@@ -52,23 +76,12 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::post('/poster/store', [PosterController::class, 'store'])->name('poster.store');
     Route::get('/posters', [PosterController::class, 'list'])->name('poster.list');
     Route::post('/poster/Ajax', [PosterGeneraterController::class, 'store_ajax'])->name('poster.store.ajax');
-    Route::delete('/poster/delete/{id}', [PosterController::class, 'delete'])->name('poster.delete');
+    Route::delete('/poster/delete/{id}', [PosterController::class, 'delete'])->name('poster.delete');   
 
-    Route::get('/poster/generate', [PosterGeneraterController::class, 'generate'])->name('generatingposter');
-
-    Route::get('/users', [UserController::class, 'list'])->name('users.List');
+    Route::get('/poster/generate', [PosterGeneraterController::class, 'generate'])->name('generatingposter');    
     Route::get('/company/{id}', [CompanyController::class, 'list_usercompany'])->name('usercompanies.list');
 
-});
 
-
-
-
-
-
-
-
-Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

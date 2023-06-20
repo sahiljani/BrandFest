@@ -12,5 +12,11 @@ class UserController extends Controller
         $users = User::all();
         return view('admin.userlist', compact('users'));           
     }  
+
+    function delete($id){
+        $User = User::find($id);
+        $User->delete();
+        return redirect()->route('users.List')->with('success', 'Company deleted successfully');
+    } 
     
 }

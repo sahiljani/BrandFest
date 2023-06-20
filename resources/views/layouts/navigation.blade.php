@@ -2,7 +2,7 @@
     <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden"
         sidenav-close></i>
     <a class="block px-8 py-6 m-0 text-sm whitespace-nowrap dark:text-white text-slate-700"
-        href="https://demos.creative-tim.com/argon-dashboard-tailwind/pages/dashboard.html" target="_blank">
+        href="{{ route('dashboard') }}" target="_blank">
         <span class="ml-1 flex justify-around items-center font-semibold transition-all duration-200 ease-nav-brand">
             <svg class="w-12" viewBox="0 0 316 316" xmlns="http://www.w3.org/2000/svg" {{ $attributes }}>
                 <path
@@ -35,7 +35,7 @@
 
 
 
-
+        @if (Auth::user()->is_admin == 0)
         <li class="mt-0.5 w-full">
 
             <a class="dark:text-white dark:opacity-80 py-[5px] text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors flex-start"
@@ -81,6 +81,9 @@
                 </li>
             </ul>
         </li>
+        @endif
+
+        @if (Auth::user()->is_admin == 1)
 
         <li class="mt-0.5 w-full">
 
@@ -107,7 +110,7 @@
 
                 <li>
                     <a href="{{ route('poster.add') }}"
-                        class="mx-5 @php echo  request()->routeIs('company.add') ? "py-[5px] bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-[5px] text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors flex-start"
+                        class="mx-5 @php echo  request()->routeIs('poster.add') ? "py-[5px] bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-[5px] text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors flex-start"
                         href="#">
                         <div
                             class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current stroke-0 text-center xl:p-2.5">
@@ -120,7 +123,7 @@
 
                 <li>
                     <a href="{{ route('poster.list') }}"
-                        class="mx-5 @php echo  request()->routeIs('company.list') ? "py-[5px] bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-[5px] text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors flex-start"
+                        class="mx-5 @php echo  request()->routeIs('poster.list') ? "py-[5px] bg-blue-500/13": ""; @endphp dark:text-white dark:opacity-80 py-[5px] text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors flex-start"
                         href="#">
                         <div
                             class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -131,6 +134,7 @@
                 </li>
             </ul>
         </li>
+        @endif
 
         @if (Auth::user()->is_admin == 1)
             <li class="mt-0.5 w-full">

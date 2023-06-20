@@ -31,10 +31,7 @@
                                             Email</th>
                                         <th
                                             class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                            View</th>
-                                        <th
-                                            class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                            Edit</th>
+                                            View</th>                                        
                                         <th
                                             class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 dark:text-white tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                             Delete</th>
@@ -64,15 +61,16 @@
                                                 <a href="{{ route('usercompanies.list', $user->id) }}" type="button" c
                                                     lass="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">View</button>
                                             </td>
-                                            <td
+                                            {{-- <td
                                                 class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                                 <span
                                                     class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"
                                                     id="open-modal">Edit</span>
-                                            </td>
+                                            </td> --}}
                                             <td
                                                 class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                                <form method="POST" id="deletealert" action='' class="my-2">
+                                                <form method="POST" id="deletealert" 
+                                                action='{{ route('user.delete', $user->id) }}' class="my-2">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
@@ -99,67 +97,20 @@
 
     </div>
 
-    {{-- <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="modal">
-                <div class="flex items-center justify-center min-h-screen">
-                  <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-                  </div>
-              
-                  <div class="bg-white rounded-lg p-8 w-full max-w-md mx-auto z-10">
-                   
-                   <form method="POST" enctype="multipart/form-data">
-                    @csrf  
-                    
-                    
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold mb-2" for="name">
-                          Name
-                        </label>
-                        <input  class="w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" name="name" placeholder="Enter name">
-                      </div>
-
-                        <div class="mb-4">
-                            <label class="block text-gray-700 font-bold mb-2" for="date">                                    
-                            Date
-                            </label>                            
-                            <input class="w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="date" id="date" type="date" placeholder="Select Date">
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-gray-700 font-bold mb-2" for="image">
-                            Poster Image
-                            </label>
-                            <img src="" alt="logo" id="poster-image-preview" width="100px" height="100px"> 
-                            <input class="w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image" name="image" type="file" placeholder="Enter dark logo">
-                        </div>   
-                        
-                        <div class="mb-4">                        
-                            <label class="block text-gray-700 font-bold mb-2" for="description">
-                            Description
-                          </label>
-                          <input name="description" class="w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" type="text" placeholder="Enter description">
-                        </div>
-              
-                       
-                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2" type="button" id="close-modal">
-                            Close
-                        </button>
-                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit">
-                            Save
-                        </button>
-                         
-                    </form>
-                  </div>
-                </div>
-            </div> --}}
-
-
-    <!-- end cards -->
     <!-- plugin for charts  -->
     <script src="../assets/js/plugins/chartjs.min.js" async></script>
     <!-- plugin for scrollbar  -->
     <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
     <!-- main script file  -->
     <script src="../assets/js/argon-dashboard-tailwind.js?v=1.0.1" async></script>
-
+    <script>
+        const deleteAlert = document.querySelector('#deletealert');
+        deleteAlert.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const confirmDelete = confirm('Are you sure you want to delete this company?');
+            if (confirmDelete) {
+                deleteAlert.submit();
+            }
+        });
+    </script>
 </x-app-layout>

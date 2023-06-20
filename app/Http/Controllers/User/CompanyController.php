@@ -50,83 +50,83 @@ class CompanyController extends Controller
     //     return view('user.editcompany', compact('company'));
     // }
 
-    public function edit_company(Request $request, $id){
-        
-        $company = Company::find($id);
-            
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phonenumber' => 'required|string|max:20',
-            'address' => 'required|string|max:255',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'dark_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'light_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-    
-        $company->name = $validatedData['name'];
-        $company->email = $validatedData['email'];
-        $company->phonenumber = $validatedData['phonenumber'];
-        $company->address = $validatedData['address'];
-    
-        if ($request->hasFile('logo')) {
-            Storage::disk('public')->delete($company->logo);
-            $logo = $request->file('logo');
-            $company->logo = $logo->store('clients/logo', 'public');           
-        }
-    
-        if ($request->hasFile('dark_logo')) {
-            Storage::disk('public')->delete($company->dark_logo);
-            $dark_logo = $request->file('dark_logo');
-            $company->dark_logo = $dark_logo->store('clients/logo', 'public');            
-        }
-    
-        if ($request->hasFile('light_logo')) {
-            Storage::disk('public')->delete($company->light_logo);
-            $light_logo = $request->file('light_logo');
-            $company->light_logo = $light_logo->store('clients/logo', 'public');          
-        }
-    
-        $company->save();
-            
-        return redirect()->route('company.list')->with('success', 'Company updated successfully');
-    }
-    
-
     // public function edit_company(Request $request, $id){
         
     //     $company = Company::find($id);
-        
-    //     if($request->name){
-    //         $company->name = $request->name;
-    //     }
-    //     if($request->email){
-    //         $company->email = $request->email;
-    //     }
-    //     if($request->phonenumber){
-    //         $company->phonenumber = $request->phonenumber;
-    //     }
-    //     if($request->address){
-    //         $company->address = $request->address;
-    //     }              
+            
+    //     $validatedData = $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|email|max:255',
+    //         'phonenumber' => 'required|string|max:20',
+    //         'address' => 'required|string|max:255',
+    //         'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         'dark_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         'light_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
+    
+    //     $company->name = $validatedData['name'];
+    //     $company->email = $validatedData['email'];
+    //     $company->phonenumber = $validatedData['phonenumber'];
+    //     $company->address = $validatedData['address'];
+    
     //     if ($request->hasFile('logo')) {
     //         Storage::disk('public')->delete($company->logo);
     //         $logo = $request->file('logo');
     //         $company->logo = $logo->store('clients/logo', 'public');           
     //     }
+    
     //     if ($request->hasFile('dark_logo')) {
     //         Storage::disk('public')->delete($company->dark_logo);
     //         $dark_logo = $request->file('dark_logo');
     //         $company->dark_logo = $dark_logo->store('clients/logo', 'public');            
     //     }
+    
     //     if ($request->hasFile('light_logo')) {
     //         Storage::disk('public')->delete($company->light_logo);
     //         $light_logo = $request->file('light_logo');
     //         $company->light_logo = $light_logo->store('clients/logo', 'public');          
-    //     }        
-    //     $company->save();        
+    //     }
+    
+    //     $company->save();
+            
     //     return redirect()->route('company.list')->with('success', 'Company updated successfully');
     // }
+    
+
+    public function edit_company(Request $request, $id){
+        
+        $company = Company::find($id);
+        
+        if($request->name){
+            $company->name = $request->name;
+        }
+        if($request->email){
+            $company->email = $request->email;
+        }
+        if($request->phonenumber){
+            $company->phonenumber = $request->phonenumber;
+        }
+        if($request->address){
+            $company->address = $request->address;
+        }              
+        if ($request->hasFile('logo')) {
+            Storage::disk('public')->delete($company->logo);
+            $logo = $request->file('logo');
+            $company->logo = $logo->store('clients/logo', 'public');           
+        }
+        if ($request->hasFile('dark_logo')) {
+            Storage::disk('public')->delete($company->dark_logo);
+            $dark_logo = $request->file('dark_logo');
+            $company->dark_logo = $dark_logo->store('clients/logo', 'public');            
+        }
+        if ($request->hasFile('light_logo')) {
+            Storage::disk('public')->delete($company->light_logo);
+            $light_logo = $request->file('light_logo');
+            $company->light_logo = $light_logo->store('clients/logo', 'public');          
+        }        
+        $company->save();        
+        return redirect()->route('company.list')->with('success', 'Company updated successfully');
+    }
     
     function delete($id){
         $company = Company::find($id);
